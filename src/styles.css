@@ -1,0 +1,23 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  text-align: center;
+}
+
+#buttons-container {
+  margin: 20px;
+}
+
+.button {
+  width: 70px;
+  height: 70px;
+  border: none;
+  margin: 10px;
+  cursor: pointer;
+}
+
+#popular-mood {
+  margin-top: 20px;
+  height: 50px;
+  width: 70px;
+}
