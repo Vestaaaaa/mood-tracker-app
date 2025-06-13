@@ -1,5 +1,6 @@
 export interface Command {
   execute(): void;
+  undo?(): void;
 }
 
 export class AddMoodCommand implements Command {
@@ -15,6 +16,7 @@ export class AddMoodCommand implements Command {
   }
 
   execute(): void {
-    this.moodStorage.addMood(this.mood);
+    const dateStr = new Date().toISOString();
+    this.moodStorage.addMood(this.mood, dateStr);
   }
 }
