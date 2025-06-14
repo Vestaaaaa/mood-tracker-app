@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,14 +8,39 @@
   </head>
   <body>
     <div id="app">
-      <div id="modal-container"></div>
       <h1>Hello! How are you today?</h1>
       <div id="buttons-container"></div>
+      <div id="container-panels" style="display: flex; gap: 20px">
+        <div id="left-panel" style="flex: 1"></div>
+        <div
+          id="right-panel"
+          style="flex: 1; display: flex; flex-direction: column; gap: 15px"
+        ></div>
+      </div>
+
+      <div id="display-mode-buttons" style="margin: 10px 0"></div>
+      <button id="undo-btn">Undo</button>
       <div id="mood-grid"></div>
       <button id="popular-mood-btn"></button>
       <div id="popular-mood"></div>
     </div>
     <div id="background-color-container"></div>
+    <div
+      id="loading-spinner"
+      style="
+        display: none;
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: #fff;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        z-index: 2000;
+      "
+    >
+      Loading...
+    </div>
     <script type="module" src="./src/main.ts"></script>
   </body>
 </html>

@@ -46,11 +46,10 @@ export function createCalendar(
   calendarBox.appendChild(dateInput);
 
   const btnContainer = document.createElement("div");
-
+  btnContainer.style.marginTop = "10px";
   btnContainer.appendChild(confirmBtn);
 
   const spacer = document.createTextNode(" ");
-
   btnContainer.appendChild(spacer);
 
   btnContainer.appendChild(cancelBtn);

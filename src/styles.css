@@ -1,23 +1,227 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #e0e5ec;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #333;
+}
+
+#app {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 12px 12px 25px #a3b1c6, -12px -12px 25px #ffffff;
+  padding: 40px 50px;
+  width: 860px;
+  min-height: 600px;
+  max-width: 95vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
   text-align: center;
+  user-select: none;
+  border: 8px solid #4a90e2;
+  box-sizing: border-box;
+  margin: 20px auto;
+}
+
+#left-panel {
+  padding-top: 100px;
+}
+
+h1 {
+  margin-bottom: 25px;
+  font-weight: 600;
+  font-size: 40px;
+  color: #222;
 }
 
 #buttons-container {
-  margin: 20px;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
 .button {
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   border: none;
-  margin: 10px;
+  border-radius: 12px;
+  cursor: grabbing;
+  transition: 0.3s ease;
+}
+
+.button:hover:not(:disabled) {
+  transform: scale(1.5);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+#display-mode-buttons {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+#display-mode-buttons button {
+  padding: 8px 18px;
+  border-radius: 10px;
+  border: 1.5px solid #888;
+  background: #f7f9fc;
+  font-weight: 600;
   cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#display-mode-buttons button:hover:not(:disabled) {
+  background-color: #d0e6ff;
+  border-color: #4a90e2;
+}
+
+#display-mode-buttons button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+#undo-btn,
+#popular-mood-btn {
+  margin: 10px 10px 20px 10px;
+  padding: 10px 25px;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 14px;
+  border: none;
+  background-color: #4a90e2;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(74, 144, 226, 0.4);
+  transition: background-color 0.3s ease;
+}
+
+#undo-btn:disabled,
+#popular-mood-btn:disabled {
+  background-color: #a0b8d9;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+#undo-btn:hover:not(:disabled),
+#popular-mood-btn:hover:not(:disabled) {
+  background-color: #357abd;
+}
+
+.mood-grid {
+  width: 50px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 6px;
+  padding-bottom: 5px;
+  -webkit-overflow-scrolling: touch;
+}
+
+#mood-grid > div {
+  flex: 0 0 30px;
+  height: 30px;
+  border-radius: 6px;
+  box-shadow: inset 1px 1px 3px rgba(255, 255, 255, 0.7),
+    2px 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: default;
+  transition: background-color 0.3s ease;
 }
 
 #popular-mood {
-  margin-top: 20px;
+  margin: 0 auto 10px auto;
   height: 50px;
   width: 70px;
+  border-radius: 10px;
+  box-shadow: inset 2px 2px 6px rgba(255, 255, 255, 0.8),
+    3px 3px 8px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #222;
+  user-select: none;
+}
+
+#modal-container > div {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#modal-container > div > div {
+  background: white;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  min-width: 280px;
+}
+
+#modal-container input[type="date"] {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1.5px solid #ccc;
+  outline: none;
+  margin-bottom: 15px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#modal-container button {
+  padding: 8px 18px;
+  margin: 0 8px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+#modal-container button:first-child {
+  background-color: #4a90e2;
+  color: white;
+}
+
+#modal-container button:first-child:hover {
+  background-color: #357abd;
+}
+
+#modal-container button:last-child {
+  background-color: #ddd;
+  color: #555;
+}
+
+#modal-container button:last-child:hover {
+  background-color: #bbb;
+}
+
+#loading-spinner {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #444;
+  user-select: none;
 }

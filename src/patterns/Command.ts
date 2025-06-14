@@ -6,17 +6,23 @@ export interface Command {
 export class AddMoodCommand implements Command {
   private moodStorage: import("../services/MoodStorage").MoodStorage;
   private mood: string;
+  private dateStr: string;
 
   constructor(
     moodStorage: import("../services/MoodStorage").MoodStorage,
-    mood: string
+    mood: string,
+    dateStr: string
   ) {
     this.moodStorage = moodStorage;
     this.mood = mood;
+    this.dateStr = dateStr;
   }
 
   execute(): void {
-    const dateStr = new Date().toISOString();
-    this.moodStorage.addMood(this.mood, dateStr);
+    this.moodStorage.addMood(this.mood, this.dateStr);
+  }
+
+  undo(): void {
+    this.moodStorage.removeMood(this.mood, this.dateStr);
   }
 }

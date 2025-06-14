@@ -1,33 +1,49 @@
 export interface State {
-  handle(): void;
+  handle(context: AppContext): void;
 }
 
-export class MoodState implements State {
-  handle(): void {
-    console.log("Режим выбора настроения");
-    // ...
+export class IdleState implements State {
+  handle(context: AppContext): void {
+    context.renderIdle();
   }
 }
 
-export class StatsState implements State {
-  handle(): void {
-    console.log("Режим просмотра статистики");
-    // ...
+export class LoadingState implements State {
+  handle(context: AppContext): void {
+    context.renderLoading();
   }
 }
 
-export class Context {
+export class AppContext {
   private state: State;
 
   constructor(initialState: State) {
     this.state = initialState;
+    this.state.handle(this);
   }
 
   setState(state: State): void {
     this.state = state;
+    this.state.handle(this);
   }
 
-  request(): void {
-    this.state.handle();
+  renderIdle(): void {
+    // убрать спиннер
+    const spinner = document.getElementById("loading-spinner");
+    if (spinner) spinner.style.display = "none";
+
+    // разблок кнопки
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach((btn) => (btn.disabled = false));
+  }
+
+  renderLoading(): void {
+    //показать спиннер
+    const spinner = document.getElementById("loading-spinner");
+    if (spinner) spinner.style.display = "block";
+
+    // блок кнопки
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach((btn) => (btn.disabled = true));
   }
 }

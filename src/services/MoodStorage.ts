@@ -31,6 +31,7 @@ export class MoodStorage extends Singleton<MoodStorage> {
   }
 
   public getPopularMood(): string {
+    if (this.moodEntries.length === 0) return "white";
     const counts: { [mood: string]: number } = {};
     this.moodEntries.forEach((entry) => {
       counts[entry.mood] = (counts[entry.mood] || 0) + 1;
@@ -39,5 +40,23 @@ export class MoodStorage extends Singleton<MoodStorage> {
       (a, b) => (counts[a] > counts[b] ? a : b),
       "white"
     );
+  }
+
+  public clearMoods(): void {
+    this.moodEntries = [];
+    this.saveToLocal();
+  }
+
+  public removeMood(mood: string, dateStr: string): void {
+    for (let i = this.moodEntries.length - 1; i >= 0; i--) {
+      if (
+        this.moodEntries[i].mood === mood &&
+        this.moodEntries[i].date === dateStr
+      ) {
+        this.moodEntries.splice(i, 1);
+        break;
+      }
+    }
+    this.saveToLocal();
   }
 }
